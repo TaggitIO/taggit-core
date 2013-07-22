@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'omniauth-github'
+gem 'octokit'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -32,14 +32,33 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  # Use sqlite3 as the development database
+  gem 'sqlite3'
+  gem 'pry-rails'
+end
+
+group :development, :test do
+  gem 'awesome_print'
+  gem 'debugger'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'database_cleaner'
+  gem 'webmock'
+  gem 'simplecov', require: false
+end
+
+group :production do
+  # Use Postgres as the production database.
+  gem 'pg'
+  # Use unicorn as the app server
+  gem 'unicorn'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
