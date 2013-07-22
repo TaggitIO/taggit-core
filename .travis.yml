@@ -1,0 +1,15 @@
+language: ruby
+
+rvm:
+  - 2.0.0
+
+bundler_args: --without development assets
+
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate
+  - bundle exec rspec spec
+
+branches:
+  only:
+    - master
+    - dev
