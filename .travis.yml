@@ -6,6 +6,7 @@ rvm:
 bundler_args: --without development production
 
 script:
+  - export $TAGGIT_SECRET_TOKEN='foobarbaz'
   - RAILS_ENV=test bundle exec rake db:migrate
   - bundle exec rspec spec
 
