@@ -33,12 +33,12 @@ group :doc do
 end
 
 group :development do
-  # Use sqlite3 as the development database
-  gem 'sqlite3'
   gem 'pry-rails'
 end
 
 group :development, :test do
+  # Use sqlite3 as the development and test databases
+  gem 'sqlite3'
   gem 'awesome_print'
   gem 'debugger'
 end

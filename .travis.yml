@@ -3,7 +3,7 @@ language: ruby
 rvm:
   - 2.0.0
 
-bundler_args: --without development assets
+bundler_args: --without development production
 
 script:
   - RAILS_ENV=test bundle exec rake db:migrate
