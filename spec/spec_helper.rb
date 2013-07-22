@@ -6,8 +6,10 @@ require 'rspec/autorun'
 require 'database_cleaner'
 require 'simplecov'
 require 'webmock'
+require 'coveralls'
 
 SimpleCov.start 'rails'
+Coveralls.wear!
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

@@ -48,6 +48,7 @@ group :test do
   gem 'database_cleaner'
   gem 'webmock'
   gem 'simplecov', require: false
+  gem 'coveralls', require: false
 end
 
 group :production do
