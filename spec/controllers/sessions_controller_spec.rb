@@ -30,7 +30,7 @@ describe SessionsController do
     end
 
     it 'should create a session for an existing user' do
-      User.create(github_uid: '1234')
+      User.create(github_id: '1234')
       User.all.count.should eq 1
 
       get :create

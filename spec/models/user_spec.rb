@@ -18,11 +18,11 @@ describe User do
     it 'should create a new user from GitHub user data' do
       new_user = described_class.from_github(auth_hash)
       new_user.persisted?.should be_true
-      new_user.github_uid.should eq auth_hash['uid']
+      new_user.github_id.should eq auth_hash['uid']
     end
 
     it 'should return an existing user if they have already registered' do
-      user = User.create(github_uid: 5678)
+      user = User.create(github_id: 5678)
       request_user = described_class.from_github(
         { 'uid' => 5678, 'credentials' => { 'token' => 'somegibberish' } }
       )
@@ -31,13 +31,25 @@ describe User do
     end
 
     it 'should update the user\'s GitHub OAuth token if it has changed' do
-      user = User.create(github_uid: 5678, github_token: 'foo')
+      user = User.create(github_id: 5678, github_token: 'foo')
       request_user = described_class.from_github(
         { 'uid' => 5678, 'credentials' => { 'token' => 'bar' } }
       )
 
       request_user.id.should eq user.id
       request_user.github_token.should eq 'bar'
+    end
+
+    it 'should create a new Owner for a new User' do
+      new_user = described_class.from_github(auth_hash)
+      
+      owner = Owner.last
+
+      owner.github_id.should eq new_user.github_id
+      owner.login.should eq new_user.login
+      owner.name.should eq new_user.name
+      new_user.owners.count.should eq 1
+      new_user.owners.first.should eq owner
     end
   end
 end
