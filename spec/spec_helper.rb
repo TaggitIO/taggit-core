@@ -5,7 +5,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'database_cleaner'
 require 'simplecov'
-require 'webmock'
+require 'webmock/rspec'
 require 'coveralls'
 
 SimpleCov.start 'rails'
