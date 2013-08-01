@@ -5,7 +5,7 @@ class ReposController < ApplicationController
   # GET /owners/:login/repos
   def index
     repos = owner.repos
-    render json: repos, root: false
+    render json: repos
   end
 
   # Public: Responds with data for a specified Owner.
@@ -15,7 +15,7 @@ class ReposController < ApplicationController
     name = params[:id].downcase
 
     repo = owner.repos.find_by!("LOWER(name) = ?", name)
-    render json: repo, root: false
+    render json: repo
   end
 
   private
