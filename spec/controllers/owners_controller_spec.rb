@@ -17,10 +17,14 @@ describe OwnersController do
     it 'should respond with Owner details if the ID param has a different case' do
       owner = Owner.create(github_id: 1234, login: 'Foo', name: 'Foo Bar')
 
-      get :show, { id: 'foo' }
+      get :show, { id: owner.login.downcase }
 
       resp = JSON.parse(response.body)
       resp['id'].should eq owner.id
+    end
+
+    it 'should raise a 404 if the Owner is not found' do
+      expect { get :show, { id: 'nogood' } }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end

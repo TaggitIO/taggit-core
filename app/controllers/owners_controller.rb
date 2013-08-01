@@ -4,7 +4,7 @@ class OwnersController < ApplicationController
   #
   # GET /owners/:login
   def show
-    owner = Owner.find_by("LOWER(login) = ?", params[:id].downcase)
+    owner = Owner.find_by!("LOWER(login) = ?", params[:id].downcase)
     render json: owner, root: false
   end
 end
