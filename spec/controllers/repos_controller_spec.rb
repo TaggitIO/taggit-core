@@ -37,4 +37,39 @@ describe ReposController do
       expect { get :show, { owner_id: @owner.login, id: 'nogood' } }.to raise_error ActiveRecord::RecordNotFound
     end
   end
+
+  context '#update' do
+    before do
+      @user = User.create(github_id: 12, login: 'foo')
+      @user.owners << @owner
+
+      session[:user_id] = @user.id
+    end
+
+    it 'should update the model attributes' do
+      put :update, {
+        owner_id: @owner.login,
+        id: @repo1.name,
+        active: true
+      }
+
+      @repo1.reload.active.should be_true
+
+      resp = JSON.parse(response.body)
+      resp['id'].should eq @repo1.id
+    end
+
+    it 'should raise a 404 if the current user is not authorized to access the Repo' do
+      user2 = User.create(github_id: 23, login: 'bar')
+      session[:user_id] = user2.id
+
+      expect do
+        put :update, {
+          owner_id: @owner.login,
+          id: @repo1.name,
+          active: true
+        }
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end

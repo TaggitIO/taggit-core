@@ -1,5 +1,7 @@
 class ReposController < ApplicationController
   
+  before_filter :set_repo, except: [:index]
+
   # Public: Responds with Repo data for a specified Owner.
   #
   # GET /owners/:login/repos
@@ -12,10 +14,22 @@ class ReposController < ApplicationController
   #
   # GET /owners/:login/repos/:name
   def show
-    name = params[:id].downcase
+    render json: @repo
+  end
 
-    repo = owner.repos.find_by!("LOWER(name) = ?", name)
-    render json: repo
+  # Public: Updates attributes for a Repo and responds with Repo data.
+  #
+  # Parameters
+  #   active - boolean value to set active state for a Repo.
+  #
+  # PUT /owners/:login/repos/:name
+  def update
+    unless current_user.repos.map(&:id).include? @repo.id
+      raise ActiveRecord::RecordNotFound.new
+    end
+
+    @repo.update!(repo_params)
+    render json: @repo
   end
 
   private
@@ -27,4 +41,19 @@ class ReposController < ApplicationController
     login = params[:owner_id].downcase
     Owner.find_by!("LOWER(login) = ?", login)
   end
+
+  # Private: Sets the Repo class variable.
+  #
+  # Sets and returns the Repo or raises RecordNotFound
+  def set_repo
+    name = params[:id].downcase
+    @repo = owner.repos.find_by!("LOWER(name) = ?", name)
+  end
+
+  # Strong Parameters sexiness. Something about not trusting the big, scary
+  # internet or whatever.
+  def repo_params
+    params.permit(:active)
+  end
+  
 end
