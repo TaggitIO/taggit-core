@@ -47,10 +47,4 @@ describe Owner do
     end
   end
 
-  context '#to_param' do
-    it 'should set the ID param for controllers' do
-      owner = Owner.create(login: 'foo')
-      owner.to_param.should eq owner.login
-    end
-  end
 end

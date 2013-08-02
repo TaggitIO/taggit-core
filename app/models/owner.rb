@@ -28,8 +28,5 @@ class Owner < ActiveRecord::Base
 
     new_owner
   end
-
-  def to_param
-    login
-  end
+  
 end
