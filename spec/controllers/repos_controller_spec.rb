@@ -12,7 +12,7 @@ describe ReposController do
     it 'should respond with Repos data for the specified Owner' do
       get :index, { owner_id: @owner.login }
 
-      resp = JSON.parse(response.body)['repos']
+      resp = json['repos']
       resp.count.should eq 2
     end
 
@@ -25,7 +25,7 @@ describe ReposController do
     it 'should respond with Repo data for the specified Owner and Repo' do
       get :show, { owner_id: @owner.login, id: @repo1.name }
 
-      resp = JSON.parse(response.body)['repo']
+      resp = json['repo']
       resp['id'].should eq @repo1.id
     end
 
@@ -55,7 +55,7 @@ describe ReposController do
 
       @repo1.reload.active.should be_true
 
-      resp = JSON.parse(response.body)['repo']
+      resp = json['repo']
       resp['id'].should eq @repo1.id
     end
 

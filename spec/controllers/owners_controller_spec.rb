@@ -7,7 +7,7 @@ describe OwnersController do
 
       get :show, { id: owner.login }
 
-      resp = JSON.parse(response.body)['owner']
+      resp = json['owner']
       resp['login'].should eq owner.login
       resp['github_id'].should eq owner.github_id
       resp['id'].should eq owner.id
@@ -19,7 +19,7 @@ describe OwnersController do
 
       get :show, { id: owner.login.downcase }
 
-      resp = JSON.parse(response.body)['owner']
+      resp = json['owner']
       resp['id'].should eq owner.id
     end
 

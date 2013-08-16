@@ -20,7 +20,7 @@ describe SessionsController do
 
       get :create
 
-      resp = JSON.parse response.body
+      resp = json
       resp['status'].should eq 'success'
       User.all.count.should eq 1
 
@@ -35,7 +35,7 @@ describe SessionsController do
 
       get :create
 
-      resp = JSON.parse response.body
+      resp = json
       resp['status'].should eq 'success'
       User.all.count.should eq 1
 
