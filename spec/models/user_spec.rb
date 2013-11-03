@@ -260,17 +260,17 @@ describe User do
     before do
       # Stub orgs call
       stub_request(:get, "https://api.github.com/user/orgs").
-        with(:headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token gibberish', 'User-Agent'=>'Octokit Ruby Gem 1.25.0'}).
+        with(:headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
         to_return(:status => 200, :body => stubbed_org_response, :headers => {})
 
       # Stub repos call
       stub_request(:get, "https://api.github.com/user/repos").
-        with(:headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token gibberish', 'User-Agent'=>'Octokit Ruby Gem 1.25.0'}).
+        with(:headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
         to_return(:status => 200, :body => stubbed_repo_response, :headers => {})
 
       # Stub org/repos call
       stub_request(:get, "https://api.github.com/users/someorg/repos").
-        with(:headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token gibberish', 'User-Agent'=>'Octokit Ruby Gem 1.25.0'}).
+        with(:headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
         to_return(:status => 200, :body => stubbed_org_repo_response, :headers => {})
     end
 

@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   # TODO: Handle repository deletions.
   # TODO: Write test cases.
   def sync_with_github
-    client = Octokit.new(login: login, oauth_token: github_token)
+    client = Octokit::Client.new(access_token: github_token)
     orgs = client.orgs
 
     repos = select_repos(client.repos)
@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
         owner_id:    owner.id,
         github_id:   repo.id,
         name:        repo.name,
+        full_name:   repo.full_name,
         url:         repo.html_url,
         description: repo.description
       )
