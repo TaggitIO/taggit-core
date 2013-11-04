@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
   #
   # TODO: Handle repository deletions.
   # TODO: Write test cases.
+  # TODO: Remove URL attribute from Repo Model.
   def sync_with_github
     client = Octokit::Client.new(access_token: github_token)
     orgs = client.orgs

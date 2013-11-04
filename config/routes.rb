@@ -1,4 +1,5 @@
 TaggitCore::Application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -60,6 +61,8 @@ TaggitCore::Application.routes.draw do
   resources :users, only: [:show, :update]
 
   resources :owners, only: [:show] do
-    resources :repos, only: [:index, :show, :update]
+    resources :repos, only: [:index, :show, :update] do
+      resources :subscriptions, only: [:create, :destroy]
+    end
   end
 end

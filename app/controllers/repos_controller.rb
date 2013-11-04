@@ -34,14 +34,6 @@ class ReposController < ApplicationController
 
   private
 
-  # Private: Gets the Owner.
-  #
-  # Returns the Owner or raises RecordNotFound
-  def owner
-    login = params[:owner_id].downcase
-    Owner.find_by!("LOWER(login) = ?", login)
-  end
-
   # Private: Sets the Repo class variable.
   #
   # Sets and returns the Repo or raises RecordNotFound

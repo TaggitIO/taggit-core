@@ -9,4 +9,20 @@ class ApplicationController < ActionController::Base
   def current_user
     @user ||= User.find_by_id(session[:user_id])
   end
+
+  # Protected: Gets the Owner.
+  #
+  # Returns the Owner or raises RecordNotFound
+  def owner
+    login = params[:owner_id].downcase
+    Owner.find_by!("LOWER(login) = ?", login)
+  end
+
+  # Protected: Sets the Repo class variable.
+  #
+  # Sets and returns the Repo or raises RecordNotFound
+  def set_repo
+    name = params[:repo_id].downcase
+    @repo = owner.repos.find_by!("LOWER(name) = ?", name)
+  end
 end
