@@ -248,7 +248,7 @@ describe User do
     end
   end
 
-  context '#sync_with_github' do
+  context '#sync_with_github!' do
     let(:user) do 
       User.create(
         github_id: 1234,
@@ -278,11 +278,21 @@ describe User do
       user.owners.count.should eq 0
       user.repos.count.should eq 0
 
-      user.sync_with_github
+      user.sync_with_github!
 
       user.reload
       user.owners.count.should eq 2
       user.repos.count.should eq 2
+    end
+
+    it 'should remove a User\'s repos if they no longer exist' do
+      owner = Owner.create(github_id: 1, login: user.login, name: user.name)
+      owner.users << user
+      repo = Repo.create(owner_id: owner.id, github_id: 1, name: 'test')
+
+      user.sync_with_github!
+
+      Repo.find_by_id(repo.id).should be_nil
     end
   end
 end

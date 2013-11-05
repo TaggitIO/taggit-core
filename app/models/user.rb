@@ -40,36 +40,23 @@ class User < ActiveRecord::Base
   # creates them as necessary.
   #
   # Examples
-  #   user.sync_with_github
+  #   user.sync_with_github!
   #   # => true
   #
   # Returns true if user is synced successfully.
   #
-  # TODO: Handle repository deletions.
   # TODO: Write test cases.
-  # TODO: Remove URL attribute from Repo Model.
-  def sync_with_github
+  def sync_with_github!
     client = Octokit::Client.new(access_token: github_token)
     orgs = client.orgs
 
-    repos = select_repos(client.repos)
+    @repos = select_repos(client.repos)
 
-    orgs.each { |org| repos << select_repos(client.repos(org.login)) }
+    orgs.each { |org| @repos << select_repos(client.repos(org.login)) }
+    @repos.flatten!
 
-    repos.flatten.each do |repo|
-      next if Repo.find_by_github_id(repo.id)
-
-      owner = Owner.find_or_create(repo.owner, self)
-      
-      Repo.create!(
-        owner_id:    owner.id,
-        github_id:   repo.id,
-        name:        repo.name,
-        full_name:   repo.full_name,
-        url:         repo.html_url,
-        description: repo.description
-      )
-    end
+    purge_repos!
+    create_repos!
 
     true
   end
@@ -89,6 +76,32 @@ class User < ActiveRecord::Base
   def select_repos(repos)
     repos.select do |repo|
       !repo.private? && repo.permissions.admin?
+    end
+  end
+
+  # Private: Create Repo objects from a User's GitHub.
+  def create_repos!
+    @repos.each do |repo|
+      next if Repo.find_by_github_id(repo.id)
+
+      owner = Owner.find_or_create(repo.owner, self)
+
+      Repo.create!(
+        owner_id:    owner.id,
+        github_id:   repo.id,
+        name:        repo.name,
+        full_name:   repo.full_name,
+        description: repo.description
+      )
+    end
+  end
+
+  # Private: Destroy all Repo objects that no longer exist on GitHub.
+  def purge_repos!
+    repo_ids = @repos.collect { |repo| repo.id }
+
+    repos.each do |repo|
+      repo.destroy! unless repo_ids.include? repo.github_id
     end
   end
 

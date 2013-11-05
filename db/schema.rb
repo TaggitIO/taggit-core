@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20131104002136) do
     t.integer  "github_id"
     t.string   "name"
     t.string   "full_name"
-    t.string   "url"
     t.boolean  "active",      default: false
     t.string   "description"
     t.boolean  "private",     default: false
