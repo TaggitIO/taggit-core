@@ -5,9 +5,8 @@ rvm:
 
 bundler_args: --without development production
 
-script:
+before_script:
   - RAILS_ENV=test bundle exec rake db:migrate
-  - bundle exec rspec spec
 
 env: 
   - TAGGIT_SECRET_TOKEN="foobarbaz" MANDRILL_APIKEY='somenonsense'
