@@ -58,7 +58,9 @@ TaggitCore::Application.routes.draw do
   get '/auth/github/callback', to: 'sessions#create'
   get '/logout',               to: 'sessions#destroy'
 
-  resources :users, only: [:show, :update]
+  post '/webhook', to: 'webhook#process_payload'
+
+  # resources :users, only: [:show, :update]
 
   resources :owners, only: [:show] do
     resources :repos, only: [:index, :show, :update] do

@@ -3,6 +3,8 @@ require 'mandrill'
 class Release < ActiveRecord::Base
   belongs_to :repo
 
+  validates :github_id, uniqueness: true
+
   after_create :send_release_notification
 
   # Public: Sends an API request to Mandrill to notify subscribers of the
