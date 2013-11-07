@@ -17,20 +17,26 @@ class Release < ActiveRecord::Base
 
     client = Mandrill::API.new
 
-    message = {
-      subject:    subject,
-      from_name:  Constants::MANDRILL_FROM_NAME,
-      text:       text_body,
-      to:         recipients,
-      html:       html_body,
-      from_email: Constants::MANDRILL_FROM_EMAIL
-    }
-
     client.messages.send message
   end
 
   private
 
+  # Private: Builds the message hash.
+  #
+  # Returns: A Hash with the required parameters to send to the Mandrill API.
+  def message
+    {
+      subject:    subject,
+      from_name:  Constants::MANDRILL_FROM_NAME,
+      text:       text_body,
+      to:         recipients,
+      html:       html_body,
+      from_email: Constants::MANDRILL_FROM_EMAIL 
+    }
+  end
+
+  # Private: Builds the subject string for an email.
   def subject
     "New Release: #{@repo.name} #{tag_name}"
   end
