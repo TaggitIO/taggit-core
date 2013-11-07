@@ -59,6 +59,7 @@ GEM
     debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    excon (0.28.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.8)
@@ -80,6 +81,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mandrill-api (1.0.49)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
     method_source (0.8.1)
     mime-types (1.25)
     minitest (4.7.5)
@@ -203,6 +207,7 @@ DEPENDENCIES
   debugger
   jbuilder (~> 1.2)
   jquery-rails
+  mandrill-api
   octokit
   omniauth-github
   pg

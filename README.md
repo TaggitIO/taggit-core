@@ -9,3 +9,4 @@ Dev: [![Build Status](https://travis-ci.org/TaggitIO/taggit-core.png?branch=dev)
   * `$TAGGIT_SECRET_KEY` (generate with `rake secret`)
   * `$TAGGIT_GITHUB_KEY`
   * `$TAGGIT_GITHUB_SECRET`
+  * `$MANDRILL_APIKEY`

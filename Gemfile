@@ -8,6 +8,9 @@ gem 'active_model_serializers'
 gem 'omniauth-github'
 gem 'octokit'
 
+# Mailing vendor gem
+gem 'mandrill-api'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

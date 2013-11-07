@@ -1,6 +1,7 @@
 class Repo < ActiveRecord::Base
   belongs_to :owner
   has_many :subscriptions
+  has_many :releases
 
   # Public: Attempts to create a web hook for a repo. Raises an exception if
   # the hook has already been created on the Repo.
