@@ -10,8 +10,7 @@ script:
   - bundle exec rspec spec
 
 env: 
-  - TAGGIT_SECRET_TOKEN="foobarbaz"
-  - MANDRILL_APIKEY='somenonsense'
+  - TAGGIT_SECRET_TOKEN="foobarbaz" MANDRILL_APIKEY='somenonsense'
 
 branches:
   only:
