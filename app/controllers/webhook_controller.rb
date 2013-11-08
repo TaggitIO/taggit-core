@@ -1,5 +1,7 @@
 class WebhookController < ApplicationController
 
+  before_action :verify_remote_host
+
   # Public: Processes a webhook payload from GitHub.
   #
   # POST /webhook
@@ -24,6 +26,13 @@ class WebhookController < ApplicationController
     else
       render nothing: true, status: :bad_request
     end
+  end
+
+  private
+
+  def verify_remote_host
+    range = IPAddr.new('192.30.252.0/22')
+    render nothing: true, status: :forbidden unless range === request.remote_ip
   end
 
 end

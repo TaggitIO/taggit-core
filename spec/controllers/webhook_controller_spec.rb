@@ -27,6 +27,10 @@ describe WebhookController do
       }
     end
 
+    before do
+      @request.env['REMOTE_ADDR'] = '192.30.252.1'
+    end
+
     it 'should create a new Release object for a Repo with the supplied data' do
       post :process_payload, params
 
@@ -64,6 +68,13 @@ describe WebhookController do
       repo.active = false
       repo.save
 
+      post :process_payload, params
+
+      response.status.should eq 403
+    end
+
+    it 'should respond with a 403 if the request did not originate from GitHub' do
+      @request.env['REMOTE_ADDR'] = '0.0.0.0'
       post :process_payload, params
 
       response.status.should eq 403
