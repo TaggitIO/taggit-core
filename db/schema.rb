@@ -41,11 +41,12 @@ ActiveRecord::Schema.define(version: 20131106212851) do
   create_table "repos", force: true do |t|
     t.integer  "owner_id"
     t.integer  "github_id"
+    t.integer  "github_hook_id"
     t.string   "name"
     t.string   "full_name"
-    t.boolean  "active",      default: false
+    t.boolean  "active",         default: false
     t.string   "description"
-    t.boolean  "private",     default: false
+    t.boolean  "private",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

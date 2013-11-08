@@ -7,6 +7,8 @@ class WebhookController < ApplicationController
     payload = params['release']
     repo = Repo.find_by(github_id: params['repository']['id'])
 
+    render nothing: true, status: :forbidden and return if repo.inactive?
+
     release = Release.new(
       repo_id:      repo.id,
       github_id:    payload['id'],

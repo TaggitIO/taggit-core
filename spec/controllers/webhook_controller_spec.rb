@@ -3,7 +3,7 @@ require 'spec_helper'
 describe WebhookController do
   context '#process' do
     let(:owner) { Owner.create(github_id: 1, login: 'foo', name: 'Foo') }
-    let(:repo)  { Repo.create(github_id: 1, owner_id: owner.id, name: 'Bar', full_name: 'foo/Bar') }
+    let(:repo)  { Repo.create(github_id: 1, owner_id: owner.id, name: 'Bar', full_name: 'foo/Bar', active: true) }
     
     let(:params) do
       {
@@ -58,6 +58,15 @@ describe WebhookController do
       post :process_payload, params
 
       response.status.should eq 400
+    end
+
+    it 'should respond with a 403 if the Repo is inactive' do
+      repo.active = false
+      repo.save
+
+      post :process_payload, params
+
+      response.status.should eq 403
     end
   end
 end
