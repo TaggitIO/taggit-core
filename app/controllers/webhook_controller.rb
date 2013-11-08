@@ -4,8 +4,8 @@ class WebhookController < ApplicationController
   #
   # POST /webhook
   def process_payload
-    repo = Repo.find_by(github_id: params['repo']['id'])
-    payload = params['payload']['release']
+    payload = params['release']
+    repo = Repo.find_by(github_id: params['repository']['id'])
 
     release = Release.new(
       repo_id:      repo.id,

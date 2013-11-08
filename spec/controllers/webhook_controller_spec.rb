@@ -7,30 +7,23 @@ describe WebhookController do
     
     let(:params) do
       {
-        type: 'release',
-        payload: {
-          release: {
-            url: "https://api.github.com/repos/foo/bar/releases/1",
-            html_url: "https://github.com/foo/bar/releases/v1.0.0",
-            assets_url: "https://api.github.com/repos/foo/bar/releases/1/assets",
-            upload_url: "https://uploads.github.com/repos/foo/bar/releases/1/assets{?name}",
-            id: 1,
-            tag_name: "v1.0.0",
-            target_commitish: "master",
-            name: "v1.0.0",
-            body: "Description of the release",
-            draft: false,
-            prerelease: false,
-            created_at: "2013-02-27T19:35:32Z",
-            published_at: "2013-02-27T19:35:32Z"
-          },
-          action: 'published'
+        release: {
+          url: "https://api.github.com/repos/foo/bar/releases/1",
+          html_url: "https://github.com/foo/bar/releases/v1.0.0",
+          assets_url: "https://api.github.com/repos/foo/bar/releases/1/assets",
+          upload_url: "https://uploads.github.com/repos/foo/bar/releases/1/assets{?name}",
+          id: 1,
+          tag_name: "v1.0.0",
+          target_commitish: "master",
+          name: "v1.0.0",
+          body: "Description of the release",
+          draft: false,
+          prerelease: false,
+          created_at: "2013-02-27T19:35:32Z",
+          published_at: "2013-02-27T19:35:32Z",
         },
-        repo: {
-          id: repo.github_id,
-          name: repo.full_name,
-          url: 'https://api.github.com/repos/foo/bar'
-        }
+        repository: { id: repo.github_id },
+        action: 'published'
       }
     end
 
@@ -39,7 +32,7 @@ describe WebhookController do
 
       response.status.should eq 201
 
-      payload = params[:payload][:release]
+      payload = params[:release]
 
       r = Release.last
       r.github_id.should eq payload[:id]
@@ -51,7 +44,7 @@ describe WebhookController do
     end
 
     it 'should respond with a 400 if the Release has already been created' do
-      payload = params[:payload][:release]
+      payload = params[:release]
       Release.create(
         repo_id:      repo.id,
         github_id:    payload[:id],
