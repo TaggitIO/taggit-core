@@ -41,7 +41,7 @@ describe Repo do
 
       stub_request(:delete, "https://api.github.com/repos/foobar/test/hooks/1").
         with(:body => "{}",
-             :headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token gibberish', 'User-Agent'=>'Octokit Ruby Gem 2.5.1'}).
+             :headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token gibberish', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
         to_return(:status => 200, :body => "", :headers => {})
     end
 

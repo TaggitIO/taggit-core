@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.2'
 gem 'active_model_serializers'
 
 # GitHub auth and interaction gems
 gem 'omniauth-github'
 gem 'octokit'
+
+gem 'temescal'
 
 # Mailing vendor gem
 gem 'mandrill-api'
@@ -47,7 +49,7 @@ group :development, :test do
   # Use sqlite3 as the development and test databases
   gem 'sqlite3'
   gem 'awesome_print'
-  gem 'debugger'
+  gem 'debugger', '~> 1.6.5'
 end
 
 group :test do

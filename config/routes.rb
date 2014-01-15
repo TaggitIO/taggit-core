@@ -40,7 +40,7 @@ TaggitCore::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
@@ -60,7 +60,7 @@ TaggitCore::Application.routes.draw do
 
   post '/webhook', to: 'webhook#process_payload'
 
-  # resources :users, only: [:show, :update]
+  resource :user, only: [:show, :update]
 
   resources :owners, only: [:show] do
     resources :repos, only: [:index, :show, :update] do
