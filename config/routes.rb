@@ -4,11 +4,13 @@ TaggitCore::Application.routes.draw do
 
   post '/webhook', to: 'webhook#process_payload'
 
-  resource :user, only: [:show, :update]
+  namespace :api, defaults: { format: :json } do
+    resource :user, only: [:show, :update]
 
-  resources :owners, only: [:show] do
-    resources :repos, only: [:index, :show, :update] do
-      resources :subscriptions, only: [:create, :destroy]
+    resources :owners, only: [:show] do
+      resources :repos, only: [:index, :show, :update] do
+        resources :subscriptions, only: [:create, :destroy]
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SubscriptionsController do
+describe API::SubscriptionsController do
   let(:owner) { Owner.create(github_id: 1, login: 'foo', name: 'Foo') }
   let(:repo)  { Repo.create(github_id: 1, owner_id: owner.id, name: 'Bar', full_name: 'foo/Bar') }
   let(:sub)   { Subscription.create(repo_id: repo.id, email: 'foo@bar.com') }

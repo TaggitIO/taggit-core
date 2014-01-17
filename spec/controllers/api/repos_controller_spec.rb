@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ReposController do
+describe API::ReposController do
 
   before do
     @owner = Owner.create(github_id: 1234, login: 'foo')

@@ -1,4 +1,4 @@
-class ReposController < ApplicationController
+class API::ReposController < ApplicationController
   
   before_filter :set_repo, except: [:index]
 
