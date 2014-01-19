@@ -16,32 +16,32 @@ describe SessionsController do
     end
 
     it 'should create a session for a new user' do
-      User.all.count.should eq 0
+      expect(User.all.count).to eq 0
 
       get :create
 
       resp = json
-      resp['status'].should eq 'success'
-      User.all.count.should eq 1
+      expect(resp['status']).to eq 'success'
+      expect(User.all.count).to eq 1
 
       user = User.first
-      session['user_id'].should eq user.id
-      session['github_token'].should eq user.github_token
+      expect(session['user_id']).to eq user.id
+      expect(session['github_token']).to eq user.github_token
     end
 
     it 'should create a session for an existing user' do
       User.create(github_id: '1234')
-      User.all.count.should eq 1
+      expect(User.all.count).to eq 1
 
       get :create
 
       resp = json
-      resp['status'].should eq 'success'
-      User.all.count.should eq 1
+      expect(resp['status']).to eq 'success'
+      expect(User.all.count).to eq 1
 
       user = User.first
-      session['user_id'].should eq user.id
-      session['github_token'].should eq user.github_token
+      expect(session['user_id']).to eq user.id
+      expect(session['github_token']).to eq user.github_token
     end
   end
 
@@ -52,11 +52,11 @@ describe SessionsController do
     end
 
     it 'should clear a user\'s session' do
-      session.any?.should be_true
+      expect(session.any?).to be_true
 
       get :destroy
 
-      session.any?.should be_false
+      expect(session.any?).to be_false
     end
   end
 

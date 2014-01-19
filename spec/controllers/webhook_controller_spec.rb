@@ -34,17 +34,17 @@ describe WebhookController do
     it 'should create a new Release object for a Repo with the supplied data' do
       post :process_payload, params
 
-      response.status.should eq 201
+      expect(response.status).to eq 201
 
       payload = params[:release]
 
       r = Release.last
-      r.github_id.should eq payload[:id]
-      r.html_url.should eq payload[:html_url]
-      r.tag_name.should eq payload[:tag_name]
-      r.body.should eq payload[:body]
-      r.prerelease.should be_false
-      r.published_at.should eq Time.iso8601(payload[:published_at])
+      expect(r.github_id).to eq payload[:id]
+      expect(r.html_url).to eq payload[:html_url]
+      expect(r.tag_name).to eq payload[:tag_name]
+      expect(r.body).to eq payload[:body]
+      expect(r.prerelease).to be_false
+      expect(r.published_at).to eq Time.iso8601(payload[:published_at])
     end
 
     it 'should respond with a 400 if the Release has already been created' do
@@ -61,7 +61,7 @@ describe WebhookController do
 
       post :process_payload, params
 
-      response.status.should eq 400
+      expect(response.status).to eq 400
     end
 
     it 'should respond with a 403 if the Repo is inactive' do
@@ -70,14 +70,14 @@ describe WebhookController do
 
       post :process_payload, params
 
-      response.status.should eq 403
+      expect(response.status).to eq 403
     end
 
     it 'should respond with a 403 if the request did not originate from GitHub' do
       @request.env['REMOTE_ADDR'] = '0.0.0.0'
       post :process_payload, params
 
-      response.status.should eq 403
+      expect(response.status).to eq 403
     end
   end
 end

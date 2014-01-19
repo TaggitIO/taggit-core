@@ -8,10 +8,10 @@ describe API::OwnersController do
       get :show, { id: owner.login }
 
       resp = json['owner']
-      resp['login'].should eq owner.login
-      resp['github_id'].should eq owner.github_id
-      resp['id'].should eq owner.id
-      resp['name'].should eq owner.name
+      expect(resp['login']).to eq owner.login
+      expect(resp['github_id']).to eq owner.github_id
+      expect(resp['id']).to eq owner.id
+      expect(resp['name']).to eq owner.name
     end
 
     it 'should respond with Owner details if the ID param has a different case' do
@@ -20,7 +20,7 @@ describe API::OwnersController do
       get :show, { id: owner.login.downcase }
 
       resp = json['owner']
-      resp['id'].should eq owner.id
+      expect(resp['id']).to eq owner.id
     end
 
     it 'should raise a 404 if the Owner is not found' do

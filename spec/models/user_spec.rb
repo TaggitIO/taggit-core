@@ -212,8 +212,8 @@ describe User do
   context '#from_github' do
     it 'should create a new user from GitHub user data' do
       new_user = described_class.from_github(auth_hash)
-      new_user.persisted?.should be_true
-      new_user.github_id.should eq auth_hash['uid']
+      expect(new_user.persisted?).to be_true
+      expect(new_user.github_id).to eq auth_hash['uid']
     end
 
     it 'should return an existing user if they have already registered' do
@@ -222,7 +222,7 @@ describe User do
         { 'uid' => 5678, 'credentials' => { 'token' => 'somegibberish' } }
       )
 
-      request_user.should eq user
+      expect(request_user).to eq user
     end
 
     it 'should update the user\'s GitHub OAuth token if it has changed' do
@@ -231,8 +231,8 @@ describe User do
         { 'uid' => 5678, 'credentials' => { 'token' => 'bar' } }
       )
 
-      request_user.id.should eq user.id
-      request_user.github_token.should eq 'bar'
+      expect(request_user.id).to eq user.id
+      expect(request_user.github_token).to eq 'bar'
     end
 
     it 'should create a new Owner for a new User' do
@@ -240,11 +240,11 @@ describe User do
       
       owner = Owner.last
 
-      owner.github_id.should eq new_user.github_id
-      owner.login.should eq new_user.login
-      owner.name.should eq new_user.name
-      new_user.owners.count.should eq 1
-      new_user.owners.first.should eq owner
+      expect(owner.github_id).to eq new_user.github_id
+      expect(owner.login).to eq new_user.login
+      expect(owner.name).to eq new_user.name
+      expect(new_user.owners.count).to eq 1
+      expect(new_user.owners.first).to eq owner
     end
   end
 
@@ -275,14 +275,14 @@ describe User do
     end
 
     it 'should create a User\'s repos and orgs from GitHub' do
-      user.owners.count.should eq 0
-      user.repos.count.should eq 0
+      expect(user.owners.count).to eq 0
+      expect(user.repos.count).to eq 0
 
       user.sync_with_github!
 
       user.reload
-      user.owners.count.should eq 2
-      user.repos.count.should eq 2
+      expect(user.owners.count).to eq 2
+      expect(user.repos.count).to eq 2
     end
 
     it 'should remove a User\'s repos if they no longer exist' do
@@ -292,7 +292,7 @@ describe User do
 
       user.sync_with_github!
 
-      Repo.find_by_id(repo.id).should be_nil
+      expect(Repo.find_by_id(repo.id)).to be_nil
     end
   end
 end

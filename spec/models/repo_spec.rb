@@ -17,19 +17,19 @@ describe Repo do
 
     it 'should activate a repo' do
       repo.activate!(user)
-      repo.reload.active.should be_true
+      expect(repo.reload.active).to be_true
     end
 
     it 'should set the hook id' do
       repo.activate!(user)
-      repo.reload.github_hook_id.should eq 1
+      expect(repo.reload.github_hook_id).to eq 1
     end
 
     it 'should do nothing if the repo is already active' do
       repo.active = true
       repo.save
 
-      repo.activate!(user).should be_false
+      expect(repo.activate!(user)).to be_false
     end
   end
 
@@ -46,24 +46,24 @@ describe Repo do
     end
 
     it 'should deactivate a repo' do
-      repo.active.should be_true
+      expect(repo.active).to be_true
       repo.deactivate!(user)
 
-      repo.reload.active.should be_false
+      expect(repo.reload.active).to be_false
     end
 
     it 'should remove the hook id' do
-      repo.github_hook_id.should eq 1
+      expect(repo.github_hook_id).to eq 1
       repo.deactivate!(user)
 
-      repo.reload.github_hook_id.should be_nil
+      expect(repo.reload.github_hook_id).to be_nil
     end
 
     it 'should do nothing if the repo is already deactivated' do
       repo.active = false
       repo.save
 
-      repo.deactivate!(user).should be_false
+      expect(repo.deactivate!(user)).to be_false
     end
   end
 
@@ -72,11 +72,11 @@ describe Repo do
       repo.active = true
       repo.save
 
-      repo.inactive?.should be_false
+      expect(repo.inactive?).to be_false
     end
 
     it 'should return true if the Repo is inactive' do
-      repo.inactive?.should be_true
+      expect(repo.inactive?).to be_true
     end
   end
 end
