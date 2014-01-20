@@ -1,4 +1,4 @@
-class API::SubscriptionsController < ApplicationController
+class Api::SubscriptionsController < ApplicationController
 
   before_filter :set_repo
 

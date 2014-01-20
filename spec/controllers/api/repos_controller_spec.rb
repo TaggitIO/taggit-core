@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe API::ReposController do
+describe Api::ReposController do
 
   let(:owner)  { Owner.create(github_id: 1234, login: 'foo') }
   let!(:repo1) { Repo.create(github_id: 1, name: 'bar', owner_id: owner.id) }

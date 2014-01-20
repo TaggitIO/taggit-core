@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe API::OwnersController do
+describe Api::OwnersController do
   context '#show' do
     it 'should respond with Owner details' do
       owner = Owner.create(github_id: 1234, login: 'foo', name: 'Foo Bar')

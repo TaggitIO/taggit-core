@@ -1,4 +1,4 @@
-class API::OwnersController < ApplicationController
+class Api::OwnersController < ApplicationController
   
   # Public: Responds with data for a specified Owner.
   #

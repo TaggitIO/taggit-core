@@ -1,4 +1,4 @@
-class API::UsersController < ApplicationController
+class Api::UsersController < ApplicationController
 
   # Public: Responds with User data for the current logged in user.
   #

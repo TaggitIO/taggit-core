@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe API::UsersController do
+describe Api::UsersController do
   let(:user) { User.create(github_id: 1, login: 'foo', name: 'Foo Bar', email: 'foo@bar.com') }
   let(:owner) { Owner.create(github_id: 1, login: 'foo',  name: 'Foo') }
 
