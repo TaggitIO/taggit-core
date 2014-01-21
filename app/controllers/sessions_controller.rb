@@ -6,7 +6,10 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     session[:github_token] = user.github_token
 
-    render json: { status: 'success' }
+    respond_to do |format|
+      format.html { redirect_to Constants::FRONTEND_URL }
+      format.json { render json: { status: 'success' } }
+    end
   end
 
   # Public: Destroy a user's session.
@@ -20,5 +23,10 @@ class SessionsController < ApplicationController
   # Protected: Helper method to expose the OmniAuth hash from an auth callback.
   def auth_hash
     request.env['omniauth.auth']
+  end
+
+  # Private: Returns the allowed HTTP methods for this controller's actions.
+  def allowed_methods
+    'GET'
   end
 end

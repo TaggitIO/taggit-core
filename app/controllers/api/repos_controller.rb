@@ -47,5 +47,10 @@ class Api::ReposController < ApplicationController
   def repo_params
     params.permit(:active)
   end
+
+  # Private: Returns the allowed HTTP methods for this controller's actions.
+  def allowed_methods
+    %w(GET PUT).join(', ')
+  end
   
 end

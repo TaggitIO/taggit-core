@@ -23,4 +23,11 @@ class Api::SubscriptionsController < ApplicationController
     render json: { status: 'success'}
   end
 
+  private
+
+  # Private: Returns the allowed HTTP methods for this controller's actions.
+  def allowed_methods
+    %w(POST DELETE).join(', ')
+  end
+
 end

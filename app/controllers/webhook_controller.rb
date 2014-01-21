@@ -35,4 +35,9 @@ class WebhookController < ApplicationController
     render nothing: true, status: :forbidden unless range === request.remote_ip
   end
 
+  # Private: Returns the allowed HTTP methods for this controller's actions.
+  def allowed_methods
+    'POST'
+  end
+
 end
