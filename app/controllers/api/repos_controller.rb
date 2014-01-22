@@ -1,10 +1,10 @@
 class Api::ReposController < ApplicationController
-  
+
   before_filter :set_repo, except: [:index]
 
   # Public: Responds with Repo data for a specified Owner.
   #
-  # GET /owners/:login/repos
+  # GET /repos?owner=:login
   def index
     repos = owner.repos
     render json: repos
@@ -12,7 +12,7 @@ class Api::ReposController < ApplicationController
 
   # Public: Responds with data for a specified Owner.
   #
-  # GET /owners/:login/repos/:name
+  # GET repos/:full_name
   def show
     render json: @repo
   end
@@ -22,7 +22,7 @@ class Api::ReposController < ApplicationController
   # Parameters
   #   active - boolean value to set active state for a Repo.
   #
-  # PUT /owners/:login/repos/:name
+  # PUT repos/:full_name
   def update
     unless current_user.repos.map(&:id).include? @repo.id
       raise ActiveRecord::RecordNotFound.new
@@ -39,7 +39,7 @@ class Api::ReposController < ApplicationController
   # Sets and returns the Repo or raises RecordNotFound
   def set_repo
     name = params[:id].downcase
-    @repo = owner.repos.find_by!("LOWER(name) = ?", name)
+    @repo = Repo.find_by!("LOWER(full_name) = ?", name)
   end
 
   # Strong Parameters sexiness. Something about not trusting the big, scary
@@ -52,5 +52,5 @@ class Api::ReposController < ApplicationController
   def allowed_methods
     %w(GET PUT).join(', ')
   end
-  
+
 end

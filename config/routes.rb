@@ -7,10 +7,9 @@ TaggitCore::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resource :user, only: [:show, :update]
 
-    resources :owners, only: [:show] do
-      resources :repos, only: [:index, :show, :update] do
-        resources :subscriptions, only: [:create, :destroy]
-      end
-    end
+    resources :owners,        only: [:show]
+    resources :subscriptions, only: [:create, :destroy]
+
+    resources :repos, id: /.+\/.+/, only: [:index, :show, :update]
   end
 end

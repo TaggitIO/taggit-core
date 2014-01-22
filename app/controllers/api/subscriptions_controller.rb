@@ -4,8 +4,8 @@ class Api::SubscriptionsController < ApplicationController
 
   # Public: Creates a new Subscription for the specified repo.
   #
-  # POST /owners/:login/repos/:name/subscriptions
-  #      {email: 'foo@bar.com'}
+  # POST /subscriptions
+  #      {email: 'foo@bar.com', repo: 'foo/blah'}
   def create
     email = params[:email]
     subscription = Subscription.create!(repo_id: @repo.id, email: email)
@@ -15,7 +15,7 @@ class Api::SubscriptionsController < ApplicationController
 
   # Public: Removes a Subscription on the specified repo.
   #
-  # DELETE /owners/:login/repos/:name/subscriptions/:id
+  # DELETE /subscriptions/:id?repo=:full_name
   def destroy
     subscription = @repo.subscriptions.find(params[:id])
     subscription.destroy!

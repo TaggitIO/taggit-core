@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   #
   # Returns the Owner or raises RecordNotFound
   def owner
-    login = params[:owner_id].downcase
+    login = params[:owner].downcase
     Owner.find_by!("LOWER(login) = ?", login)
   end
 
@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
   #
   # Sets and returns the Repo or raises RecordNotFound
   def set_repo
-    name = params[:repo_id].downcase
-    @repo = owner.repos.find_by!("LOWER(name) = ?", name)
+    name = params[:repo].downcase
+    @repo = Repo.find_by!("LOWER(full_name) = ?", name)
   end
 
   # Protected: Preflight OPTIONS response for CORS.

@@ -3,36 +3,32 @@ require 'spec_helper'
 describe Api::ReposController do
 
   let(:owner)  { Owner.create(github_id: 1234, login: 'foo') }
-  let!(:repo1) { Repo.create(github_id: 1, name: 'bar', owner_id: owner.id) }
-  let!(:repo2) { Repo.create(github_id: 2, name: 'baz', owner_id: owner.id) }
+  let!(:repo1) { Repo.create(github_id: 1, name: 'bar', full_name: 'foo/bar', owner_id: owner.id) }
+  let!(:repo2) { Repo.create(github_id: 2, name: 'baz', full_name: 'foo/baz', owner_id: owner.id) }
 
   context '#index' do
     it 'should respond with Repos data for the specified Owner' do
-      get :index, { owner_id: owner.login }
+      get :index, { owner: owner.login }
 
       resp = json['repos']
       expect(resp.count).to eq 2
     end
 
     it 'should raise a 404 if the Owner is not found' do
-      expect { get :index, { owner_id: 'nogood' } }.to raise_error ActiveRecord::RecordNotFound
+      expect { get :index, { owner: 'foo/nogood' } }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 
   context '#show' do
     it 'should respond with Repo data for the specified Owner and Repo' do
-      get :show, { owner_id: owner.login, id: repo1.name }
+      get :show, { id: repo1.full_name }
 
       resp = json['repo']
       expect(resp['id']).to eq repo1.id
     end
 
-    it 'should raise a 404 if the Owner is not found' do
-      expect { get :show, { owner_id: 'nogood', id: repo1.name } }.to raise_error ActiveRecord::RecordNotFound
-    end
-
     it 'should raise a 404 if the Repo is not found' do
-      expect { get :show, { owner_id: owner.login, id: 'nogood' } }.to raise_error ActiveRecord::RecordNotFound
+      expect { get :show, { id: 'foo/nogood' } }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 
@@ -48,8 +44,7 @@ describe Api::ReposController do
 
     it 'should update the model attributes' do
       put :update, {
-        owner_id: owner.login,
-        id: repo1.name,
+        id: repo1.full_name,
         active: true
       }
 
@@ -65,8 +60,7 @@ describe Api::ReposController do
 
       expect do
         put :update, {
-          owner_id: owner.login,
-          id: repo1.name,
+          id: repo1.full_name,
           active: true
         }
       end.to raise_error(ActiveRecord::RecordNotFound)
