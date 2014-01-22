@@ -18,7 +18,7 @@ describe SessionsController do
     it 'should create a session for a new user' do
       expect(User.all.count).to eq 0
 
-      get :create
+      get :create, { format: :json }
 
       resp = json
       expect(resp['status']).to eq 'success'
@@ -33,7 +33,7 @@ describe SessionsController do
       User.create(github_id: '1234')
       expect(User.all.count).to eq 1
 
-      get :create
+      get :create, { format: :json }
 
       resp = json
       expect(resp['status']).to eq 'success'
