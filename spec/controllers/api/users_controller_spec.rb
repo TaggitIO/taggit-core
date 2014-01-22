@@ -14,7 +14,7 @@ describe Api::UsersController do
 
   context '#show' do
     it 'should respond with the user details' do
-      get :show
+      get :show, id: 'singleton'
 
       response = json['user']
       expect(response['id']).to eq user.id
@@ -28,7 +28,7 @@ describe Api::UsersController do
         Repo.create(owner_id: owner.id, github_id: i, name: "Repo#{i}", full_name: "foo/Repo#{i}")
       end
 
-      get :show
+      get :show, id: 'singleton'
 
       response = json['user']
       expect(response['repos'].count).to eq 2
@@ -37,19 +37,19 @@ describe Api::UsersController do
 
   context '#update' do
     it 'should let the user update their email' do
-      put :update, { email: 'foo+1@bar.com' }
+      put :update, { id: 'singleton', email: 'foo+1@bar.com' }
 
       expect(user.reload.email).to eq 'foo+1@bar.com'
     end
 
     it 'should not accept any other parameters' do
-      put :update, { name: 'Foos' }
+      put :update, { id: 'singleton', name: 'Foos' }
 
       expect(user.reload.name).to eq 'Foo Bar'
     end
 
     it 'should respond with the user\'s data' do
-      put :update, { email: 'foo+1@bar.com' }
+      put :update, { id: 'singleton', email: 'foo+1@bar.com' }
 
       expect(json['user']['email']).to eq 'foo+1@bar.com'
     end
