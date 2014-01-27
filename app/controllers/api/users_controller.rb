@@ -4,6 +4,8 @@ class Api::UsersController < ApplicationController
   #
   # GET /user
   def show
+    raise Errors::UnauthorizedError.new unless current_user.present?
+
     render json: current_user
   end
 

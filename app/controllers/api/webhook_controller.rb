@@ -1,4 +1,4 @@
-class WebhookController < ApplicationController
+class Api::WebhookController < ApplicationController
 
   before_action :verify_remote_host
 
