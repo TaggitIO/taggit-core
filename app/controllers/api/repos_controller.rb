@@ -25,7 +25,7 @@ class Api::ReposController < ApplicationController
   # PUT repos/:full_name
   def update
     unless current_user.repos.map(&:id).include? @repo.id
-      raise ActiveRecord::RecordNotFound.new
+      raise Errors::NotFoundError.new
     end
 
     @repo.update!(repo_params)

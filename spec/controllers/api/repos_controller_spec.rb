@@ -15,7 +15,11 @@ describe Api::ReposController do
     end
 
     it 'should raise a 404 if the Owner is not found' do
-      expect { get :index, { owner: 'foo/nogood' } }.to raise_error ActiveRecord::RecordNotFound
+      expect { get :index, { owner: 'bar' } }.to raise_error ActiveRecord::RecordNotFound
+    end
+
+    it 'should raise a 404 if the Owner is not specified' do
+      expect { get :index }.to raise_error Errors::NotFoundError
     end
   end
 
@@ -63,7 +67,7 @@ describe Api::ReposController do
           id: repo1.full_name,
           active: true
         }
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(Errors::NotFoundError)
     end
   end
 end

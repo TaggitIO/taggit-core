@@ -33,6 +33,12 @@ describe Api::UsersController do
       response = json['user']
       expect(response['repos'].count).to eq 2
     end
+
+    it 'should respond with a 401 when the user is not logged in' do
+      session['user_id'] = nil
+
+      expect { get :show, id: 'singleton' }.to raise_error Errors::UnauthorizedError
+    end
   end
 
   context '#update' do

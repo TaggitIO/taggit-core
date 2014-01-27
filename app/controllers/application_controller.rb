@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
   #
   # Returns the Owner or raises RecordNotFound
   def owner
+    if params[:owner].blank?
+      raise Errors::NotFoundError.new('Owner not found.')
+    end
+
     login = params[:owner].downcase
     Owner.find_by!("LOWER(login) = ?", login)
   end
