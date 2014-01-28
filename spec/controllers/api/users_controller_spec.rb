@@ -23,17 +23,6 @@ describe Api::UsersController do
       expect(response['email']).to eq user.email
     end
 
-    it 'should respond with user repo details' do
-      2.times do |i|
-        Repo.create(owner_id: owner.id, github_id: i, name: "Repo#{i}", full_name: "foo/Repo#{i}")
-      end
-
-      get :show, id: 'singleton'
-
-      response = json['user']
-      expect(response['repos'].count).to eq 2
-    end
-
     it 'should respond with a 401 when the user is not logged in' do
       session['user_id'] = nil
 

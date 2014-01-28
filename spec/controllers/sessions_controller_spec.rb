@@ -18,11 +18,7 @@ describe SessionsController do
     it 'should create a session for a new user' do
       expect(User.all.count).to eq 0
 
-      get :create, { format: :json }
-
-      resp = json
-      expect(resp['status']).to eq 'success'
-      expect(User.all.count).to eq 1
+      get :create
 
       user = User.first
       expect(session['user_id']).to eq user.id
@@ -33,15 +29,16 @@ describe SessionsController do
       User.create(github_id: '1234')
       expect(User.all.count).to eq 1
 
-      get :create, { format: :json }
-
-      resp = json
-      expect(resp['status']).to eq 'success'
-      expect(User.all.count).to eq 1
+      get :create
 
       user = User.first
       expect(session['user_id']).to eq user.id
       expect(session['github_token']).to eq user.github_token
+    end
+
+    it 'should redirect to the frontend' do
+      get :create
+      expect(response).to redirect_to Constants::FRONTEND_URL
     end
   end
 
