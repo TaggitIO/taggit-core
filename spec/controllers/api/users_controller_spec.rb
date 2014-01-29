@@ -49,4 +49,29 @@ describe Api::UsersController do
       expect(json['user']['email']).to eq 'foo+1@bar.com'
     end
   end
+
+  context '#sync' do
+    before do
+      @current_user = user
+      @current_user.stub(:sync_with_github!).and_return(true)
+      controller.stub(:current_user).and_return(@current_user)
+    end
+
+    it 'should sync repos for a user from GitHub' do
+      expect(@current_user).to receive(:sync_with_github!)
+
+      post :sync, { id: 'singleton' }
+    end
+
+    it 'should respond with repo data' do
+      2.times do |i|
+        Repo.create(owner_id: owner.id, github_id: i, name: "bar#{i}")
+      end
+
+      post :sync, { id: 'singleton' }
+
+      resp = json['repos']
+      expect(resp.count).to eq 2
+    end
+  end
 end

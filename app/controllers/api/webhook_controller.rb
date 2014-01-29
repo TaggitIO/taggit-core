@@ -34,10 +34,4 @@ class Api::WebhookController < ApplicationController
     range = IPAddr.new('192.30.252.0/22')
     render nothing: true, status: :forbidden unless range === request.remote_ip
   end
-
-  # Private: Returns the allowed HTTP methods for this controller's actions.
-  def allowed_methods
-    'POST'
-  end
-
 end

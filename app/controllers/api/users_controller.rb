@@ -1,11 +1,11 @@
 class Api::UsersController < ApplicationController
 
+  before_filter :authorization_check
+
   # Public: Responds with User data for the current logged in user.
   #
-  # GET /user
+  # GET /api/users/current
   def show
-    raise Errors::UnauthorizedError.new unless current_user.present?
-
     render json: current_user
   end
 
@@ -14,10 +14,18 @@ class Api::UsersController < ApplicationController
   # Parameters
   #   email - string value of a user's email address.
   #
-  # PUT /user
+  # PUT /api/users/current
   def update
     current_user.update!(user_params)
     render json: current_user
+  end
+
+  # Public: Forces a Repo sync with GitHub.
+  #
+  # POST /api/users/current/sync
+  def sync
+    current_user.sync_with_github!
+    render json: current_user.repos, root: 'repos'
   end
 
   private
@@ -28,9 +36,9 @@ class Api::UsersController < ApplicationController
     params.permit(:email)
   end
 
-  # Private: Returns the allowed HTTP methods for this controller's actions.
-  def allowed_methods
-    %w(GET PUT).join(', ')
+  # Private: Checks to make sure a user is logged in and responds with a 401
+  # if they're not.
+  def authorization_check
+    raise Errors::UnauthorizedError.new unless current_user.present?
   end
-
 end

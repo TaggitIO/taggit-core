@@ -21,9 +21,4 @@ class SessionsController < ApplicationController
   def auth_hash
     request.env['omniauth.auth']
   end
-
-  # Private: Returns the allowed HTTP methods for this controller's actions.
-  def allowed_methods
-    'GET'
-  end
 end
