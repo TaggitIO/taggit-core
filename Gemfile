@@ -35,6 +35,7 @@ group :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'database_cleaner'
   gem 'webmock'
+  gem 'timecop'
   gem 'simplecov', require: false
   gem 'coveralls', require: false
 end

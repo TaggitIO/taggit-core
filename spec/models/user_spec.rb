@@ -237,7 +237,7 @@ describe User do
 
     it 'should create a new Owner for a new User' do
       new_user = described_class.from_github(auth_hash)
-      
+
       owner = Owner.last
 
       expect(owner.github_id).to eq new_user.github_id
@@ -249,7 +249,7 @@ describe User do
   end
 
   context '#sync_with_github!' do
-    let(:user) do 
+    let(:user) do
       User.create(
         github_id: 1234,
         login: 'foo',
@@ -293,6 +293,26 @@ describe User do
       user.sync_with_github!
 
       expect(Repo.find_by_id(repo.id)).to be_nil
+    end
+
+    it 'should update the last_synced_at column' do
+      Timecop.freeze
+
+      expect(user.last_synced_at).to be_nil
+
+      user.sync_with_github!
+
+      expect(user.last_synced_at).to eq Time.now
+
+      Timecop.return
+    end
+
+    it 'should set the syncing column to false' do
+      user.update_column(:syncing, true)
+
+      user.sync_with_github!
+
+      expect(user.reload.syncing).to be_false
     end
   end
 end

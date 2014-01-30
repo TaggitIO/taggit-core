@@ -24,6 +24,11 @@ class Api::UsersController < ApplicationController
   #
   # POST /api/users/current/sync
   def sync
+    if current_user.syncing?
+      raise Errors::ConflictError.new('User is already syncing')
+    end
+
+    current_user.update_column(:syncing, true)
     current_user.sync_with_github!
     render json: current_user.repos, root: 'repos'
   end

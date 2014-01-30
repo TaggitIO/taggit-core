@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   #   User.from_github(auth_hash)
   #   # => #<User id: 1, github_uid:...>
   #
-  # Returns the User. 
+  # Returns the User.
   def self.from_github(auth_hash)
     github_id   = auth_hash['uid']
     github_token = auth_hash['credentials']['token']
@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
 
     purge_repos!
     create_repos!
+
+    self.last_synced_at = Time.now
+    self.syncing        = false
+    self.save!
 
     true
   end

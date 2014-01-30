@@ -73,5 +73,17 @@ describe Api::UsersController do
       resp = json['repos']
       expect(resp.count).to eq 2
     end
+
+    it 'should set the syncing column on the User to true' do
+      post :sync, { id: 'singleton' }
+
+      expect(user.reload.syncing?).to be_true
+    end
+
+    it 'should respond with a 409 if the User is already syncing' do
+      user.update_column(:syncing, true)
+
+      expect { post :sync, { id: 'singleton' } }.to raise_error Errors::ConflictError
+    end
   end
 end

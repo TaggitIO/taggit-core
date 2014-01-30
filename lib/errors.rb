@@ -16,4 +16,11 @@ module Errors
 			@message 		 = message || "Not found."
 		end
 	end
+
+	class ConflictError < TaggitError
+		def initialize(message = nil)
+			@http_status = 409
+			@message 		 = message || "Conflict."
+		end
+	end
 end

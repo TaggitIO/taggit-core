@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106212851) do
+ActiveRecord::Schema.define(version: 20140129235857) do
 
   create_table "owners", force: true do |t|
     t.integer  "github_id"
@@ -59,15 +59,17 @@ ActiveRecord::Schema.define(version: 20131106212851) do
   end
 
   create_table "users", force: true do |t|
-    t.integer  "github_id",                 null: false
+    t.integer  "github_id",                      null: false
     t.string   "github_token"
     t.string   "login"
     t.string   "name"
     t.string   "email"
     t.string   "gravatar_id"
-    t.integer  "sign_in_count", default: 0
+    t.integer  "sign_in_count",  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "syncing",        default: false
+    t.datetime "last_synced_at"
   end
 
 end
