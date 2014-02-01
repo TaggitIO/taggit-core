@@ -40,10 +40,4 @@ class Api::UsersController < ApplicationController
   def user_params
     params.permit(:email)
   end
-
-  # Private: Checks to make sure a user is logged in and responds with a 401
-  # if they're not.
-  def authorization_check
-    raise Errors::UnauthorizedError.new unless current_user.present?
-  end
 end

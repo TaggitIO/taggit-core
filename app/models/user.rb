@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :owners
   has_many :repos, through: :owners
+  has_many :subscriptions
 
   # Public: Find or create a User based on their GitHub profile.
   #

@@ -8,7 +8,7 @@ describe Api::UsersController do
     user.owners << owner
     user.save!
 
-    session['user_id'] = 1
+    session['user_id'] = user.id
     session['github_token'] = 'somegibberish'
   end
 

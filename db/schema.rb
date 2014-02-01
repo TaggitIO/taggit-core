@@ -52,8 +52,9 @@ ActiveRecord::Schema.define(version: 20140129235857) do
   end
 
   create_table "subscriptions", force: true do |t|
-    t.string   "email"
+    t.integer  "user_id"
     t.integer  "repo_id"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,7 +66,6 @@ ActiveRecord::Schema.define(version: 20140129235857) do
     t.string   "name"
     t.string   "email"
     t.string   "gravatar_id"
-    t.integer  "sign_in_count",  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "syncing",        default: false

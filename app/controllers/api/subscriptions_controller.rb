@@ -1,23 +1,30 @@
 class Api::SubscriptionsController < ApplicationController
 
-  before_filter :set_repo
+  before_filter :authorization_check
+  before_filter :set_repo, only: [:create]
 
   # Public: Creates a new Subscription for the specified repo.
   #
   # POST /subscriptions
   #      {email: 'foo@bar.com', repo: 'foo/blah'}
   def create
-    email = params[:email]
-    subscription = Subscription.create!(repo_id: @repo.id, email: email)
+    email   = params[:email]
+    user_id = current_user.id
+
+    subscription = Subscription.create!(
+      user_id: user_id,
+      repo_id: @repo.id,
+      email: email
+    )
 
     render json: subscription
   end
 
   # Public: Removes a Subscription on the specified repo.
   #
-  # DELETE /subscriptions/:id?repo=:full_name
+  # DELETE /subscriptions/:id
   def destroy
-    subscription = @repo.subscriptions.find(params[:id])
+    subscription = current_user.subscriptions.find(params[:id])
     subscription.destroy!
 
     render json: { status: 'success'}

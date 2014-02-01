@@ -32,4 +32,10 @@ class ApplicationController < ActionController::Base
     name = params[:repo].downcase
     @repo = Repo.find_by!("LOWER(full_name) = ?", name)
   end
+
+  # Protected: Checks to make sure a user is logged in and responds with a 401
+  # if they're not.
+  def authorization_check
+    raise Errors::UnauthorizedError.new unless current_user.present?
+  end
 end
