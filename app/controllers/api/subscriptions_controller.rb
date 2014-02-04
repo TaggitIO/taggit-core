@@ -14,7 +14,7 @@ class Api::SubscriptionsController < ApplicationController
     subscription = Subscription.create!(
       user_id: user_id,
       repo_id: @repo.id,
-      email: email
+      email:   email
     )
 
     render json: subscription
