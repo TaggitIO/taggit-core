@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Crypto
 
   has_and_belongs_to_many :owners
   has_many :repos, through: :owners
@@ -14,17 +15,17 @@ class User < ActiveRecord::Base
   #
   # Returns the User.
   def self.from_github(auth_hash)
-    github_id   = auth_hash['uid']
-    github_token = auth_hash['credentials']['token']
-
+    github_id    = auth_hash['uid']
+    # Encrypt the user's OAuth token for secure storage.
+    github_token = encrypt(auth_hash['credentials']['token'])
 
     user = where(github_id: github_id).first_or_create do |user|
-      user.github_id      = github_id
-      user.github_token    = github_token
-      user.login           = auth_hash['info']['nickname']
-      user.name            = auth_hash['info']['name']
-      user.email           = auth_hash['info']['email']
-      user.gravatar_id     = auth_hash['extra']['raw_info']['gravatar_id']
+      user.github_id    = github_id
+      user.github_token = github_token
+      user.login        = auth_hash['info']['nickname']
+      user.name         = auth_hash['info']['name']
+      user.email        = auth_hash['info']['email']
+      user.gravatar_id  = auth_hash['extra']['raw_info']['gravatar_id']
     end
 
     # Create an Owner with the same attributes as the User.
@@ -48,8 +49,9 @@ class User < ActiveRecord::Base
   #
   # TODO: Write test cases.
   def sync_with_github!
-    client = Octokit::Client.new(access_token: github_token)
-    orgs = client.orgs
+    token  = decrypt(github_token)
+    client = Octokit::Client.new(access_token: token)
+    orgs   = client.orgs
 
     @repos = select_repos(client.repos)
 
@@ -109,5 +111,4 @@ class User < ActiveRecord::Base
       repo.destroy! unless repo_ids.include? repo.github_id
     end
   end
-
 end

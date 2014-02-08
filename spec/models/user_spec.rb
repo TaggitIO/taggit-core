@@ -226,13 +226,13 @@ describe User do
     end
 
     it 'should update the user\'s GitHub OAuth token if it has changed' do
-      user = User.create(github_id: 5678, github_token: 'foo')
+      user = User.create(github_id: 5678, github_token: 'iTr4DvvYOTIESAPo8TgOsw==97025cc5603bb463')
       request_user = described_class.from_github(
         { 'uid' => 5678, 'credentials' => { 'token' => 'bar' } }
       )
 
       expect(request_user.id).to eq user.id
-      expect(request_user.github_token).to eq 'bar'
+      expect(request_user.github_token).to_not eq user.github_token
     end
 
     it 'should create a new Owner for a new User' do
@@ -246,6 +246,14 @@ describe User do
       expect(new_user.owners.count).to eq 1
       expect(new_user.owners.first).to eq owner
     end
+
+    it 'should encrypt the user\'s github token' do
+      new_user = described_class.from_github(auth_hash)
+
+      expect(new_user.github_token.present?).to be_true
+      expect(new_user.github_token).to_not eq auth_hash['credentials']['token']
+      expect(new_user.github_token.length).to eq 40
+    end
   end
 
   context '#sync_with_github!' do
@@ -253,7 +261,7 @@ describe User do
       User.create(
         github_id: 1234,
         login: 'foo',
-        github_token:'gibberish'
+        github_token:'OkXz0koUVF9+RJAzjeKxlQ==53bdb72ee4ea2b93'
       )
     end
 
