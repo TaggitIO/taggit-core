@@ -9,7 +9,7 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:migrate
 
 env:
-  - TAGGIT_SECRET_TOKEN="foobarbaz" MANDRILL_APIKEY='somenonsense' TAGGIT_ENCRYPT_KEY='somemorenonsense'
+  - TAGGIT_SECRET_TOKEN="foobarbaz" MANDRILL_APIKEY='somenonsense' TAGGIT_ENCRYPT_KEY='b81976b2641526f1b838bd85b683678c9aee589112178616b041497c23b203b844aacc72c72b13fc6096647aa317ab4c58875c7aa9616eec4c66aea53581a3d3'
 
 branches:
   only:

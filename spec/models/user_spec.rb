@@ -209,6 +209,11 @@ describe User do
     ]
   end
 
+  let(:token) do
+    cipher = Crypto::Cipher.new(:encrypt)
+    cipher.encrypt('foobar')
+  end
+
   context '#from_github' do
     it 'should create a new user from GitHub user data' do
       new_user = described_class.from_github(auth_hash)
@@ -226,7 +231,7 @@ describe User do
     end
 
     it 'should update the user\'s GitHub OAuth token if it has changed' do
-      user = User.create(github_id: 5678, github_token: 'iTr4DvvYOTIESAPo8TgOsw==97025cc5603bb463')
+      user = User.create(github_id: 5678, github_token: token)
       request_user = described_class.from_github(
         { 'uid' => 5678, 'credentials' => { 'token' => 'bar' } }
       )
@@ -261,7 +266,7 @@ describe User do
       User.create(
         github_id: 1234,
         login: 'foo',
-        github_token:'OkXz0koUVF9+RJAzjeKxlQ==53bdb72ee4ea2b93'
+        github_token: token
       )
     end
 
