@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   #
   # TODO: Write test cases.
   def sync_with_github!
-    token  = decrypt(github_token)
+    token  = decrypt(github_token) # Decrypt user's OAuth token.
     client = Octokit::Client.new(access_token: token)
     orgs   = client.orgs
 
