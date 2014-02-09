@@ -1,14 +1,8 @@
 module Crypto
   class Cipher
     # Public: Initialize a new Cipher object.
-    #
-    # mode - A Symbol representing which mode the cipher needs to use (i.e.,
-    # :encrypt, :decrypt)
-    def initialize(mode)
+    def initialize
       @cipher = OpenSSL::Cipher::AES.new(256, :CBC)
-      @cipher.send(mode)
-
-      @cipher.key = ENV['TAGGIT_ENCRYPT_KEY']
     end
 
     # Public: AES encrypts a String.
@@ -22,6 +16,10 @@ module Crypto
     # Returns a Base 64 encoded string of the encrypted data with the initial
     # vector appended.
     def encrypt(data)
+      @cipher.encrypt
+      @cipher.key = ENV['TAGGIT_ENCRYPT_KEY']
+
+      iv = SecureRandom.hex(8)
       @cipher.iv = iv
 
       data = @cipher.update(data) + @cipher.final
@@ -44,15 +42,11 @@ module Crypto
 
       data = Base64.strict_decode64(data)
 
+      @cipher.decrypt
+      @cipher.key = ENV['TAGGIT_ENCRYPT_KEY']
+
       @cipher.iv = iv
       @cipher.update(data) + @cipher.final
-    end
-
-    private
-
-    # Private: Creates and memoizes an initial vector.
-    def iv
-      @_iv ||= SecureRandom.hex(8)
     end
   end
 
@@ -66,12 +60,12 @@ module Crypto
 
   module ClassMethods
     def encrypt(data)
-      cipher = Cipher.new(:encrypt)
+      cipher = Cipher.new#(:encrypt)
       cipher.encrypt(data)
     end
 
     def decrypt(data)
-      cipher = Cipher.new(:decrypt)
+      cipher = Cipher.new#(:decrypt)
       cipher.decrypt(data)
     end
   end

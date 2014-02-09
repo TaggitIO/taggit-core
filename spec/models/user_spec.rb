@@ -210,7 +210,7 @@ describe User do
   end
 
   let(:token) do
-    cipher = Crypto::Cipher.new(:encrypt)
+    cipher = Crypto::Cipher.new
     cipher.encrypt('foobar')
   end
 

@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe Crypto::Cipher do
-  let(:encrypted) do
-    cipher = Crypto::Cipher.new(:encrypt)
-    cipher.encrypt('foobar')
-  end
+  let(:cipher)    { Crypto::Cipher.new }
+  let(:encrypted) { cipher.encrypt('foobar') }
 
   describe '#encrypt' do
     it 'should AES encrypt a string' do
@@ -14,7 +12,6 @@ describe Crypto::Cipher do
 
   describe '#decrypt' do
     it 'should decrypt an AES-encrypted string' do
-      cipher = Crypto::Cipher.new(:decrypt)
       data = cipher.decrypt(encrypted)
 
       expect(data).to eq 'foobar'
