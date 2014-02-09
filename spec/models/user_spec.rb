@@ -209,10 +209,7 @@ describe User do
     ]
   end
 
-  let(:token) do
-    cipher = Crypto::Cipher.new
-    cipher.encrypt('foobar')
-  end
+  let(:token) { Crypto::Cipher.encrypt('foobar') }
 
   context '#from_github' do
     it 'should create a new user from GitHub user data' do
