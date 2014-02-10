@@ -5,6 +5,8 @@ require 'rspec/autorun'
 require 'database_cleaner'
 require 'webmock/rspec'
 
+require 'excon'
+
 if ENV["CI"]
   require 'coveralls'
   Coveralls.wear!

@@ -12,7 +12,7 @@ describe Release do
       ENV['MANDRILL_APIKEY'] = 'somenonsense'
       stub_request(:post, "https://mandrillapp.com/api/1.0/messages/send-template.json").
          with(:body => "{\"template_name\":\"release\",\"template_content\":[{\"name\":\"tag_name\",\"content\":\"v1.0.0\"},{\"name\":\"repo_name\",\"content\":\"foo/Bar\"},{\"name\":\"body\",\"content\":\"Woohoo! V1!\"},{\"name\":\"prerelease\",\"content\":\"No\"},{\"name\":\"published_at\",\"content\":\"#{release.published_at.strftime('%m/%d/%Y %H:%m %Z')}\"}],\"message\":{\"subject\":\"New Release: Bar v1.0.0\",\"from_name\":\"Taggit\",\"to\":[{\"email\":\"foo@bar.com\",\"name\":\"Foo\"}],\"from_email\":\"noreply@taggit.io\",\"global_merge_vars\":[{\"name\":\"HTML_URL\",\"content\":\"https://github.com/foo/bar/releases/v1.0.0\"}]},\"async\":false,\"ip_pool\":null,\"send_at\":null,\"key\":\"somenonsense\"}",
-              :headers => {'Content-Type'=>'application/json', 'Host'=>'mandrillapp.com:443', 'User-Agent'=>'excon/0.28.0'}).
+              :headers => {'Content-Type'=>'application/json', 'Host'=>'mandrillapp.com:443', 'User-Agent'=>"excon/#{Excon::VERSION}"}).
          to_return(:status => 200, :body => [{email: 'foo@bar.com', status: 'sent', _id: 'somehash', reject_reason: nil}].to_json, :headers => {})
 
       status = release.send_release_notification.first
