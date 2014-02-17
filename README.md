@@ -11,3 +11,5 @@ Master: [![Build Status](https://travis-ci.org/TaggitIO/taggit-core.png?branch=m
   * `$TAGGIT_GITHUB_KEY`
   * `$TAGGIT_GITHUB_SECRET`
   * `$MANDRILL_APIKEY`
+  * `$TAGGIT_FRONTEND_URL`
+  * `$TAGGIT_HOOK_URL`

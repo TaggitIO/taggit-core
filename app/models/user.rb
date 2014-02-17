@@ -46,8 +46,6 @@ class User < ActiveRecord::Base
   #   # => true
   #
   # Returns true if user is synced successfully.
-  #
-  # TODO: Write test cases.
   def sync_with_github!
     token  = decrypt(github_token) # Decrypt user's OAuth token.
     client = Octokit::Client.new(access_token: token)

@@ -1,4 +1,6 @@
 class Repo < ActiveRecord::Base
+  include Crypto
+
   belongs_to :owner
   has_many :subscriptions
   has_many :releases
@@ -100,7 +102,7 @@ class Repo < ActiveRecord::Base
 
   # Private: Builds a new Octokit::Client object.
   def client
-    Octokit::Client.new(access_token: @user.github_token)
+    Octokit::Client.new(access_token: decrypt(@user.github_token))
   end
 
 end
