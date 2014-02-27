@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
-  skip_before_filter :verify_authenticity_token,
-    if: Proc.new { |c| c.request.format == :json }
+  after_action :set_csrf_cookie
 
   protected
 
@@ -37,5 +34,17 @@ class ApplicationController < ActionController::Base
   # if they're not.
   def authorization_check
     raise Errors::UnauthorizedError.new unless current_user.present?
+  end
+
+  # Protected: Sets a XSRF-TOKEN cookie.
+  def set_csrf_cookie
+    if protect_against_forgery?
+      cookies['XSRF-TOKEN'] = form_authenticity_token
+    end
+  end
+
+  # Protected: Overrides verified_request? to check the X-CSRF-TOKEN header.
+  def verififed_request?
+    super || form_authenticity_token == request.headers['X-CSRF-TOKEN']
   end
 end
