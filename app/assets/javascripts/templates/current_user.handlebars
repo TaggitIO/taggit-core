@@ -1,0 +1,9 @@
+<ul class="nav nav-pills pull-right">
+  {{#if isSignedIn}}
+    <li><img {{bind-attr src=gravatarUrl alt=login}} height="20" width="20"></li>
+    <li><a href="/#/settings">Settings</a></li>
+    <li><a href="/auth/logout">Logout</a></li>
+  {{else}}
+    <li><a href="/auth/github">Login</a></li>
+  {{/if}}
+</ul>

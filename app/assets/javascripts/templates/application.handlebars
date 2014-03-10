@@ -1,0 +1,21 @@
+<div class="header">
+  <div class="container">
+    {{render "current_user"}}
+    <span class="header-image">
+      <a href="/">
+        <img src="https://s3.amazonaws.com/taggitio/images/header.png" alt="Taggit" />
+      </a>
+    </span>
+  </div>
+</div>
+
+<div class="container">
+
+  {{outlet}}
+
+  <div class="footer">
+    <p>Copyright &copy; 2014 Taggit</p>
+    <p>Built with love by <a href="https://github.com/todd">todd</a>.</p>
+  </div>
+
+</div>

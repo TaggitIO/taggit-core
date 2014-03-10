@@ -1,5 +1,4 @@
 module Constants
-  FRONTEND_URL              = ENV['TAGGIT_FRONTEND_URL']
   HOOK_URL                  = ENV['TAGGIT_HOOK_URL']
 
   MANDRILL_FROM_NAME        = 'Taggit'

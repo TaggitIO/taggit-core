@@ -1,4 +1,6 @@
 TaggitCore::Application.routes.draw do
+  root to: 'main#index'
+
   get '/auth/github/callback', to: 'sessions#create'
   get '/auth/logout',          to: 'sessions#destroy'
 
