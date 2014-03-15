@@ -15,6 +15,8 @@ gem 'temescal'
 # Mailing vendor gem
 gem 'mandrill-api'
 
+# Assets
+gem 'coffee-rails'
 gem 'haml-rails'
 gem 'ember-rails'
 gem 'ember-data-source', '~> 1.0.0.beta.7'
