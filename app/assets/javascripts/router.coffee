@@ -12,7 +12,7 @@ App.OwnerRoute = Em.Route.extend
 
 App.RepoRoute = Em.Route.extend
   model: (params) ->
-    @store.find('repo', "#{params.login}/#{params.name}")
+    @store.find('repo', "#{params.login}/#{params.repo}")
 
 App.UserRoute = Em.Route.extend
   model: (params) ->

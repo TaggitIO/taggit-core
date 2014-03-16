@@ -18,6 +18,7 @@ gem 'mandrill-api'
 # Assets
 gem 'coffee-rails'
 gem 'haml-rails'
+gem 'hamlbars', '~> 2.1'
 gem 'ember-rails'
 gem 'ember-data-source', '~> 1.0.0.beta.7'
 gem 'bower-rails', '~> 0.7.1'

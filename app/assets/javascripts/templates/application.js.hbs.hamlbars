@@ -1,0 +1,16 @@
+.header
+  .container
+    = hb "render 'current_user'"
+    %span.header-image
+      %a{href: '/'}
+        %img{src: "https://s3.amazonaws.com/taggitio/images/header.png", alt: "Taggit"}
+
+.container
+
+  = hb "outlet"
+
+  .footer
+    %p Copyright &copy; 2014 Taggit
+    %p
+      Built with love by
+      %a{href: "https://github.com/todd"}todd
