@@ -1,0 +1,9 @@
+%h2 Update Your Email
+%p It's not required, but we'd love to have your email on file. If you plan to subscribe to release notifications, we'll definitely need it. We promise we won't send you any spammy emails.
+%label{for: "email"} Email
+= hb "input name='email' id='email'"
+%p
+  = hb "view App.EmailOptOutCheckboxView name='email-opt-out'"
+  %small Don't set my email and don't ask me again (you can always set your email address in your settings later).
+
+%button{_action: "updateEmail"} Continue

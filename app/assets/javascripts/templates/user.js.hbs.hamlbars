@@ -1,0 +1,3 @@
+%h2
+  = hb "controller.currentUser.login"
+%img{bind: {src: "controller.currentUser.gravatarUrl", alt: "controller.currentUser.login"}}

@@ -1,0 +1,11 @@
+%ul.nav.nav-pills.pull-right
+  = hb "if isSignedIn" do
+    %li
+      %img{bind: {src: "currentUser.gravatarUrl", alt: "currentUser.login"}, height: 20, width: 20}
+    %li
+      %a{href: "/#/settings"}Settings
+    %li
+      %a{href: "/auth/logout"}Logout
+    = hb "else"
+    %li
+      %a{href: "/auth/github"}Login

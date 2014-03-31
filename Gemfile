@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
@@ -14,6 +14,14 @@ gem 'temescal'
 
 # Mailing vendor gem
 gem 'mandrill-api'
+
+# Assets
+gem 'coffee-rails'
+gem 'haml-rails'
+gem 'hamlbars', '~> 2.1'
+gem 'ember-rails'
+gem 'ember-data-source', '~> 1.0.0.beta.7'
+gem 'bower-rails', '~> 0.7.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

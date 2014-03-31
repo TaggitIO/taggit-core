@@ -1,4 +1,6 @@
 TaggitCore::Application.routes.draw do
+  root to: 'main#index'
+
   get '/auth/github/callback', to: 'sessions#create'
   get '/auth/logout',          to: 'sessions#destroy'
 
@@ -12,6 +14,7 @@ TaggitCore::Application.routes.draw do
 
     resources :owners,        only: [:show]
     resources :subscriptions, only: [:create, :destroy]
+    resources :releases,      only: [:index]
 
     resources :repos, id: /.+\/.+/, only: [:index, :show, :update]
   end

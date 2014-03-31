@@ -6,13 +6,14 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     session[:github_token] = user.github_token
 
-    redirect_to Constants::FRONTEND_URL
+    redirect_to root_url
   end
 
   # Public: Destroy a user's session.
   def destroy
     session.clear
-    render json: { status: 'success' }
+
+    redirect_to root_url
   end
 
   protected

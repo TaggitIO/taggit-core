@@ -1,7 +1,7 @@
 class Api::SubscriptionsController < ApplicationController
 
   before_filter :authorization_check
-  before_filter :set_repo, only: [:create]
+  before_action :set_repo, only: [:create]
 
   # Public: Creates a new Subscription for the specified repo.
   #

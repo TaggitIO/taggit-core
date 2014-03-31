@@ -38,7 +38,7 @@ describe SessionsController do
 
     it 'should redirect to the frontend' do
       get :create
-      expect(response).to redirect_to Constants::FRONTEND_URL
+      expect(response).to redirect_to root_url
     end
   end
 

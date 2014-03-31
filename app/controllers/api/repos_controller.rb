@@ -1,6 +1,6 @@
 class Api::ReposController < ApplicationController
 
-  before_filter :set_repo, except: [:index]
+  before_action :set_repo, except: [:index]
 
   # Public: Responds with Repo data for a specified Owner.
   #

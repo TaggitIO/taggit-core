@@ -1,0 +1,17 @@
+= hb "if controller.currentUser" do
+
+  = hb "if controller.currentUser.showUpdateEmailForm" do
+    = hb "render 'update_email'"
+
+    = hb "else"
+    TODO
+
+  = hb "else"
+  .jumbotron
+    %h2 Tracking Releases Sucks
+    %p.lead Get alerts when the packages you rely on get new releases on GitHub.
+    %p
+      %a.btn.btn-lg.btn-success{href: "#", "role" => "button"}Sign in with GitHub
+
+  / Recent Releases
+  = hb "render 'recent_releases'"

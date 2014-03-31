@@ -1,6 +1,6 @@
 module Errors
 	class TaggitError < StandardError
-		attr_reader :http_status, :message
+		attr_reader :http_status
 	end
 
 	class UnauthorizedError < TaggitError
