@@ -32,19 +32,19 @@ describe Api::UsersController do
 
   context '#update' do
     it 'should let the user update their email' do
-      put :update, { id: 'singleton', email: 'foo+1@bar.com' }
+      put :update, { id: 'singleton', user: {email: 'foo+1@bar.com'} }
 
       expect(user.reload.email).to eq 'foo+1@bar.com'
     end
 
     it 'should not accept any other parameters' do
-      put :update, { id: 'singleton', name: 'Foos' }
+      put :update, { id: 'singleton', user: {name: 'Foos'} }
 
       expect(user.reload.name).to eq 'Foo Bar'
     end
 
     it 'should respond with the user\'s data' do
-      put :update, { id: 'singleton', email: 'foo+1@bar.com' }
+      put :update, { id: 'singleton', user: {email: 'foo+1@bar.com'} }
 
       expect(json['user']['email']).to eq 'foo+1@bar.com'
     end

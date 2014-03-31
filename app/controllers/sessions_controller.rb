@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
   # Public: Destroy a user's session.
   def destroy
     session.clear
-    render json: { status: 'success' }
+
+    redirect_to root_url
   end
 
   protected

@@ -1,0 +1,21 @@
+.row.marketing
+  %h2.text-center Recent Releases
+  .col-lg-6
+    = hb "each leftReleases" do
+      %h4
+        = hb "repo.name"
+      %p
+        %span
+          = hb "tag_name"
+          \-
+          = hb "repo.full_name"
+
+  .col-lg-6
+    = hb "each rightReleases" do
+      %h4
+        = hb "repo.name"
+      %p
+        %span
+          = hb "tag_name"
+          \-
+          = hb "repo.full_name"

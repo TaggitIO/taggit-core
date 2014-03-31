@@ -1,7 +1,9 @@
 #= require jquery
+#= require jquery-ujs
 #= require handlebars
 #= require ember
 #= require ember-data
+#= require underscore
 #= require_self
 #= require taggit_core
 

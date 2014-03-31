@@ -3,3 +3,4 @@
 
 asset "bootstrap"
 asset "underscore"
+asset "jquery-ujs"

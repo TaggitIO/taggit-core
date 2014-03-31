@@ -13,6 +13,8 @@ class Api::UsersController < ApplicationController
   #
   # Parameters
   #   email - string value of a user's email address.
+  #   email_opt_out - boolean value of whether a user has chosen to opt out
+  #   setting their email address.
   #
   # PUT /api/users/current
   def update
@@ -38,6 +40,6 @@ class Api::UsersController < ApplicationController
   # Strong Parameters sexiness. Something about not trusting the big, scary
   # internet or whatever.
   def user_params
-    params.permit(:email)
+    params.require(:user).permit(:email, :email_opt_out)
   end
 end

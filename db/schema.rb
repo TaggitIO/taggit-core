@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20131106212851) do
     t.string   "gravatar_id"
     t.boolean  "syncing",        default: false
     t.datetime "last_synced_at"
+    t.boolean  "email_opt_out",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

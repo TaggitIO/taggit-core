@@ -14,6 +14,7 @@ TaggitCore::Application.routes.draw do
 
     resources :owners,        only: [:show]
     resources :subscriptions, only: [:create, :destroy]
+    resources :releases,      only: [:index]
 
     resources :repos, id: /.+\/.+/, only: [:index, :show, :update]
   end
