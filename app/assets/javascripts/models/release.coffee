@@ -1,7 +1,7 @@
 App.Release = DS.Model.extend
-  html_url:     DS.attr("string")
-  tag_name:     DS.attr("string")
-  published_at: DS.attr("date")
+  htmlUrl:     DS.attr("string")
+  tagName:     DS.attr("string")
+  publishedAt: DS.attr("date")
 
   repo: DS.belongsTo("repo", embedded: "always")
 

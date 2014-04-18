@@ -6,9 +6,9 @@
         = hb "repo.name"
       %p
         %span
-          = hb "tag_name"
+          = hb "tagName"
           \-
-          = hb "repo.full_name"
+          = hb "repo.fullName"
 
   .col-lg-6
     = hb "each rightReleases" do
@@ -16,6 +16,6 @@
         = hb "repo.name"
       %p
         %span
-          = hb "tag_name"
+          = hb "tagName"
           \-
-          = hb "repo.full_name"
+          = hb "repo.fullName"

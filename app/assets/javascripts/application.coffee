@@ -11,5 +11,5 @@
 window.App = Em.Application.create
   rootElement: $('#app')
 
-App.ApplicationAdapter = DS.RESTAdapter.extend
+App.ApplicationAdapter = DS.ActiveModelAdapter.extend
   namespace: 'api'
