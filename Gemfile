@@ -36,7 +36,7 @@ group :development, :test do
   # Use sqlite3 as the development and test databases
   gem 'sqlite3'
   gem 'awesome_print'
-  gem 'debugger', '~> 1.6.5'
+  gem 'byebug'
 end
 
 group :test do
