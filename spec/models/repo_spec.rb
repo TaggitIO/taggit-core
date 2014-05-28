@@ -12,7 +12,7 @@ describe Repo do
     before do
       stub_request(:post, "https://api.github.com/repos/foobar/test/hooks").
         with(:body => "{\"name\":\"web\",\"config\":{\"url\":\"#{Constants::HOOK_URL}\",\"content_type\":\"json\"},\"events\":[\"release\"],\"active\":true}",
-             :headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token foobar', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
+             :headers => {'Accept'=>'application/vnd.github.v3+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token foobar', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
         to_return(:status => 200, :body => Sawyer::Resource.new(agent, {id: 1}), :headers => {})
     end
 
@@ -42,7 +42,7 @@ describe Repo do
 
       stub_request(:delete, "https://api.github.com/repos/foobar/test/hooks/1").
         with(:body => "{}",
-             :headers => {'Accept'=>'application/vnd.github.beta+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token foobar', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
+             :headers => {'Accept'=>'application/vnd.github.v3+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'token foobar', 'User-Agent'=>"Octokit Ruby Gem #{Octokit::VERSION}"}).
         to_return(:status => 200, :body => "", :headers => {})
     end
 
